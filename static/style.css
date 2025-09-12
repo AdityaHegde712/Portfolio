@@ -9,8 +9,10 @@
     --white: #ffffff; /* accents/contrast */
     --radius: 16px;
     --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    --maxw: 1100px;
 }
 
+/* Reset-ish */
 *,
 *::before,
 *::after {
@@ -36,7 +38,103 @@ body {
     color: var(--white);
 }
 
-/* ====== Layout ====== */
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* ====== Header / Nav ====== */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: saturate(120%) blur(8px);
+    background: rgba(17, 19, 24, 0.6);
+    border-bottom: 1px solid var(--border);
+}
+
+.nav {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0.9rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand {
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.35rem 0.7rem;
+    box-shadow: var(--shadow);
+}
+
+/* ====== Buttons ====== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: transform 120ms ease, background 120ms ease, border-color 120ms ease, opacity 120ms ease;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn-primary {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--white);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-primary:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.32);
+}
+
+.btn-ghost {
+    background: transparent;
+    color: var(--text);
+}
+
+.btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ====== Sections / Containers ====== */
+.section {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 3rem 1rem 4rem;
+}
+
+.section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+}
+
+.section-title {
+    margin: 0;
+    font-size: clamp(1.2rem, 1.2rem + 1.5vw, 2rem);
+    font-weight: 800;
+    letter-spacing: 0.02em;
+}
+
+/* ====== Layout: Hero ====== */
 .hero {
     min-height: 100svh;
     display: grid;
@@ -44,7 +142,6 @@ body {
     padding: 6rem 1.5rem;
 }
 
-/* Card with a sharp, minimal look and subtle top accent */
 .card {
     width: min(960px, 100%);
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0) 20%), var(--surface);
@@ -66,6 +163,20 @@ body {
     background: linear-gradient(90deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.15));
 }
 
+/* Hero grid */
+.hero-card {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    align-items: center;
+    gap: clamp(1.25rem, 3vw, 2.5rem);
+}
+
+@media (max-width: 820px) {
+    .hero-card {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* ====== Typography ====== */
 .title {
     margin: 0;
@@ -73,20 +184,103 @@ body {
     letter-spacing: 0.02em;
     line-height: 1.15;
     font-size: clamp(1.4rem, 3vw + 1.2rem, 3rem);
-    text-transform: none; /* text already supplied in uppercase */
     color: var(--text);
     text-wrap: balance;
 }
 
-/* Slight entrance animation (crisp, not flashy) */
+.muted {
+    color: var(--muted);
+}
+
+/* ====== Avatar Placeholder ====== */
+.hero-media {
+    display: grid;
+    place-items: center;
+}
+
+.avatar {
+    inline-size: min(280px, 42vw);
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    background: radial-gradient(80% 60% at 50% 30%, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02) 70%), linear-gradient(160deg, #0f1218 0%, #0b0d12 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+/* If you replace the div with an <img class="avatar"> this keeps it clean */
+img.avatar {
+    object-fit: cover;
+    display: block;
+}
+
+/* ====== Projects ====== */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.project-card {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0) 20%), var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 1.1rem;
+    display: grid;
+    gap: 0.8rem;
+}
+
+.project-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.project-title {
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    font-size: 1.05rem;
+}
+
+.tags {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}
+
+.tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--muted);
+}
+
+.project-desc {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+.project-actions {
+    margin-top: 0.2rem;
+}
+
+/* ====== Motion ====== */
 @media (prefers-reduced-motion: no-preference) {
-    .card {
+    .card,
+    .project-card {
         opacity: 0;
         transform: translateY(8px);
         animation: fadeUp 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both 60ms;
     }
 }
-
 @keyframes fadeUp {
     to {
         opacity: 1;
