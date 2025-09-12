@@ -1,0 +1,95 @@
+/* ====== Base Theme (dark, sharp, modern) ====== */
+:root {
+    --bg: #0b0d10;
+    --bg-2: #0a0b0e;
+    --surface: #111318;
+    --border: #1f2937;
+    --text: #e5e7eb; /* light gray */
+    --muted: #9ca3af; /* mid gray */
+    --white: #ffffff; /* accents/contrast */
+    --radius: 16px;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    color: var(--text);
+    background: radial-gradient(1000px 600px at 10% 10%, #0d1015 0%, transparent 70%), radial-gradient(900px 500px at 90% 20%, #0a0c10 0%, transparent 70%), linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+    font-family: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+    background: rgba(255, 255, 255, 0.15);
+    color: var(--white);
+}
+
+/* ====== Layout ====== */
+.hero {
+    min-height: 100svh;
+    display: grid;
+    place-items: center;
+    padding: 6rem 1.5rem;
+}
+
+/* Card with a sharp, minimal look and subtle top accent */
+.card {
+    width: min(960px, 100%);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0) 20%), var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: clamp(2rem, 4vw + 1rem, 4rem);
+    position: relative;
+    overflow: clip;
+}
+
+/* Accent bar */
+.card::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto auto 0;
+    height: 3px;
+    width: 100%;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.15));
+}
+
+/* ====== Typography ====== */
+.title {
+    margin: 0;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    line-height: 1.15;
+    font-size: clamp(1.4rem, 3vw + 1.2rem, 3rem);
+    text-transform: none; /* text already supplied in uppercase */
+    color: var(--text);
+    text-wrap: balance;
+}
+
+/* Slight entrance animation (crisp, not flashy) */
+@media (prefers-reduced-motion: no-preference) {
+    .card {
+        opacity: 0;
+        transform: translateY(8px);
+        animation: fadeUp 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both 60ms;
+    }
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
