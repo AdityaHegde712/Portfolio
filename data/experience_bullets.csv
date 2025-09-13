@@ -1,0 +1,7 @@
+experience_id,bullet
+"1","Increased ship detection rate from 16% to 93%+ across 500+ SAR and Optical satellite images by building a custom data pipeline for preprocessing and feature enhancement."
+"1","Delivered client-ready ship detection models, achieving over 95% accuracy and near elimination of manual analysis, by developing a Deep Learning based object detection pipeline."
+"1","Reduced analysis runtime of of 100km² SAR images by over 66% (6 → sub 2 minutes) without loss of accuracy and enabled faster client deliveries using GPU optimization and multiprocessing."
+"2","Improved frame interpolation efficiency by 28.5% over a ResNet18 baseline by integrating an EfficientNetB0 backbone, achieving 30 → 120 fps upscaling with sharper detail preservation."
+"2","Explored federated learning frameworks (Flower, PySyft, OpenFL, TFF) by simulating demographic splits of a credit card fraud dataset across parallel edge devices, benchmarking decentralized vs centralized training performance."
+"2","Developed 20k+ lines of quality code across multiple research project codebases, ensuring readability and adhering to the best coding practices."

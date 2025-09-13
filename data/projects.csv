@@ -1,0 +1,3 @@
+id,name,tech_stack,start,end,github
+"1","Marine Debris Detection Framework","Python; Pytorch; YOLO; Rasterio; Git","Dec 2024","Apr 2025",""
+"2","Seg2Box","Python; Pytorch; OpenCV; Git","Oct 2024","Nov 2024",""

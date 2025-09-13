@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Aditya Hegde — Portfolio</title>
 
-        <!-- Optional: clean modern font; safe to remove if you want zero external deps -->
+        <!-- Optional modern font -->
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
 
@@ -14,12 +14,18 @@
         <meta name="description" content="Portfolio of Aditya Hegde — student at SJSU and machine learning enthusiast." />
     </head>
     <body>
-        <!-- Header with sticky nav + Recruit Me CTA -->
+        <!-- Header with sticky nav + CTAs -->
         <header class="site-header">
             <nav class="nav">
                 <a class="brand" href="/">AH</a>
-                <!-- TODO: replace YOUR_EMAIL@domain.com with your actual email -->
-                <a class="btn btn-primary" href="mailto:aditya.hegde@sjsu.edu?subject=Recruit%20Aditya%20Hegde">RECRUIT ME</a>
+                <div class="nav-actions">
+                    <a class="btn btn-ghost" href="{{ url_for('static', filename='RESUME.pdf') }}" target="_blank" rel="noopener">Download Résumé</a>
+                    {% if contact.github %}
+                    <a class="btn btn-ghost" href="{{ contact.github }}" target="_blank" rel="noopener">GitHub</a>
+                    {% endif %} {% if contact.email %}
+                    <a class="btn btn-primary" href="mailto:{{ contact.email }}?subject=Recruit%20Aditya%20Hegde">RECRUIT ME</a>
+                    {% endif %}
+                </div>
             </nav>
         </header>
 
@@ -28,16 +34,62 @@
             <section class="hero">
                 <div class="card hero-card" aria-label="Intro">
                     <div class="hero-content">
-                        <h1 class="title">MY NAME IS ADITYA HEGDE, AND I AM A STUDENT AT SJSU AND A MACHINE LEARNING ENTHUSIAST</h1>
+                        <h1 class="title">Aditya Hegde, SJSU Student, ML Enthusiast</h1>
                     </div>
 
                     <!-- Placeholder portrait.
                Replace this <div> with:
                <img class="avatar" src="{{ url_for('static', filename='me.jpg') }}" alt="Portrait of Aditya Hegde">
           -->
-                    <div class="hero-media">
+                    <!-- <div class="hero-media">
                         <div class="avatar" aria-label="Placeholder for my photo"></div>
+                    </div> -->
+                    <div class="hero-media">
+                        <img class="avatar" src="{{ url_for('static', filename='me.png') }}" alt="Portrait of Aditya Hegde" loading="eager" decoding="async" />
                     </div>
+                </div>
+            </section>
+
+            <!-- EDUCATION -->
+            <section id="education" class="section">
+                <div class="section-head">
+                    <h2 class="section-title">Education</h2>
+                </div>
+                <div class="list">
+                    {% for edu in education %}
+                    <article class="item">
+                        <header class="item-head">
+                            <h3 class="item-title">{{ edu.degree }}</h3>
+                            <div class="item-meta">{{ edu.start }} — {{ edu.end }}</div>
+                        </header>
+                        <div class="item-submeta">{{ edu.institution }} · {{ edu.location }}</div>
+                    </article>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <!-- EXPERIENCE -->
+            <section id="experience" class="section">
+                <div class="section-head">
+                    <h2 class="section-title">Experience</h2>
+                </div>
+                <div class="list">
+                    {% for job in experience %}
+                    <article class="item">
+                        <header class="item-head">
+                            <h3 class="item-title">{{ job.role }} · {{ job.company }}</h3>
+                            <div class="item-meta">{{ job.start }} — {{ job.end }}</div>
+                        </header>
+                        <div class="item-submeta">{{ job.location }}</div>
+                        {% if job.bullets %}
+                        <ul class="bullets">
+                            {% for b in job.bullets %}
+                            <li>{{ b }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </article>
+                    {% endfor %}
                 </div>
             </section>
 
@@ -45,28 +97,61 @@
             <section id="projects" class="section">
                 <div class="section-head">
                     <h2 class="section-title">Projects</h2>
-                    <!-- TODO: replace YOUR_GITHUB with your GitHub handle or repo URL -->
-                    <a class="btn btn-ghost" href="https://github.com/AdityaHegde712" target="_blank" rel="noopener noreferrer">View all on GitHub</a>
+                    {% if contact.github %}
+                    <a class="btn btn-ghost" href="{{ contact.github }}" target="_blank" rel="noopener">View all on GitHub</a>
+                    {% endif %}
                 </div>
 
                 <div class="project-grid">
-                    <!-- Placeholder project card -->
+                    {% for p in projects %}
                     <article class="project-card">
                         <header class="project-header">
-                            <h3 class="project-title">Placeholder Project</h3>
+                            <h3 class="project-title">{{ p.name }}</h3>
+                            {% if p.tech_stack %}
                             <div class="tags">
-                                <span class="tag">Deep Learning</span>
-                                <span class="tag">Computer Vision</span>
-                                <span class="tag">Pytorch</span>
-                                <span class="tag">OpenCV</span>
+                                {% for t in p.tech_stack.split(';') %} {% set tag = t|trim %} {% if tag %}
+                                <span class="tag">{{ tag }}</span>
+                                {% endif %} {% endfor %}
                             </div>
+                            {% endif %}
                         </header>
-                        <p class="project-desc">A brief one-liner about the project. Replace this text with what the project does, the problem it solves, and your role.</p>
+                        {% if p.bullets %}
+                        <ul class="bullets">
+                            {% for b in p.bullets %}
+                            <li>{{ b }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
                         <div class="project-actions">
-                            <!-- TODO: replace with the real repository link -->
-                            <a class="btn btn-primary" href="https://github.com/YOUR_GITHUB/placeholder-project" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
+                            {% if p.github %}
+                            <a class="btn btn-primary" href="{{ p.github }}" target="_blank" rel="noopener">GitHub Repo</a>
+                            {% endif %}
                         </div>
                     </article>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <!-- SKILLS -->
+            <section id="skills" class="section">
+                <div class="section-head">
+                    <h2 class="section-title">Skills</h2>
+                </div>
+                <div class="list">
+                    {% for s in skills %}
+                    <article class="item item--compact">
+                        <header class="item-head">
+                            <h3 class="item-title">{{ s.category }}</h3>
+                        </header>
+                        {% set skills_items = s.get('items', '') %} {% if skills_items %}
+                        <div class="chips">
+                            {% for raw in skills_items.split(';') %} {% set chip = raw|trim %} {% if chip %}
+                            <span class="chip">{{ chip }}</span>
+                            {% endif %} {% endfor %}
+                        </div>
+                        {% endif %}
+                    </article>
+                    {% endfor %}
                 </div>
             </section>
         </main>

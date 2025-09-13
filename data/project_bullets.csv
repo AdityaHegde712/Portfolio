@@ -1,0 +1,8 @@
+project_id,bullet
+"1","Built a rule-based system using spectral index analysis (FDI, NDWI, NDVI) and automated thresholding to identify marine debris in Sentinel-2 imagery."
+"1","Integrated deep learning (YOLO) with custom post-processing into a multi-resolution geospatial pipeline, generating GeoJSON detections for GIS-based monitoring."
+"1","Deployed a POC web app intended for NGOs and researchers to upload satellite images, run inference, and visualize results interactively, improving accessibility of large-scale environmental monitoring."
+"1","Currently working on a research paper draft to be published."
+"2","Built a processing pipeline to convert segmentation maps into bounding boxes using an Intersection-over-Minimum function, improving annotation efficiency and quality."
+"2","Validated on 1,000+ wildfire images (CEMS dataset), where YOLOv5 and DETR trained on our annotations outperformed Roboflow’s converter by +8% and +3% mAP-50."
+"2","Significantly reduces re-annotation effort while maintaining speeds and performance comparable to Roboflow."
